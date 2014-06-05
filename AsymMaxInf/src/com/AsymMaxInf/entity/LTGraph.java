@@ -7,17 +7,17 @@ import java.util.Random;
 
 /**
  * @author wang
- * 继承Graph
- * 包括对节点阈值赋值、节点之间关系，邻居影响力权重b(v,w)
+ * 锟教筹拷Graph
+ * 锟斤拷锟斤拷锟皆节碉拷锟斤拷值锟斤拷值锟斤拷锟节碉拷之锟斤拷锟斤拷系锟斤拷锟节撅拷影锟斤拷锟斤拷权锟斤拷b(v,w)
  */
 public class LTGraph extends Graph {
-	public ArrayList<Double>	nodeThreshold;	//节点阈值
+	public ArrayList<Double>	nodeThreshold;	//锟节碉拷锟斤拷值
 	
 	public LTGraph()
 	{
 		nodeThreshold=new ArrayList<Double>();
 	}
-	/*节点阈值设置*/
+	/*锟节碉拷锟斤拷值锟斤拷锟斤拷*/
 	public void SetThreshold()
 	{
 		Random r=new Random(55);
@@ -27,18 +27,18 @@ public class LTGraph extends Graph {
 			nodeThreshold.add(v);
 		}
 	}
-	/*边权重新赋值设置*/
+	/*锟斤拷权锟斤拷锟铰革拷值锟斤拷锟斤拷*/
 	public void SetLTWeight()
 	{
 	
-		/*出边权计算，因为出边权与入边权用的是相同的内存，修改出边的权值，则同样修改了入边的权值*/
-		Iterator<ArrayList<Edge>> iter1=outEdges.iterator();
+		/*锟斤拷锟斤拷权锟斤拷锟姐，锟斤拷为锟斤拷锟斤拷权锟斤拷锟斤拷锟斤拷权锟矫碉拷锟斤拷锟斤拷同锟斤拷锟节存，锟睫改筹拷锟竭碉拷权值锟斤拷锟斤拷同锟斤拷锟睫革拷锟斤拷锟斤拷锟竭碉拷权值*/
+		Iterator<ArrayList<Edge>> iter1=inEdges.iterator();
 		while(iter1.hasNext())
 		{
-			/*每一次循环为给每一个节点的出边队列赋权*/
+			/*每一锟斤拷循锟斤拷为锟斤拷每一锟斤拷锟节碉拷锟侥筹拷锟竭讹拷锟叫革拷权*/
 			ArrayList<Edge>e=iter1.next();
 			
-			//对src出边的List修改权值，因为src的出边Edge对象与des的入边Edge对象引用同一块内存，所以修改一次就好。
+			//锟斤拷src锟斤拷锟竭碉拷List锟睫革拷权值锟斤拷锟斤拷为src锟侥筹拷锟斤拷Edge锟斤拷锟斤拷锟斤拷des锟斤拷锟斤拷锟斤拷Edge锟斤拷锟斤拷锟斤拷锟斤拷同一锟斤拷锟节存，锟斤拷锟斤拷锟睫革拷一锟轿就好★拷
 			Iterator<Edge> iter11=e.iterator();
 			int n=e.size();
 			while(iter11.hasNext())
