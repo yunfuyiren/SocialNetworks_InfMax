@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.Map.Entry;
 
 import com.AsymMaxInf.entity.EdgeEntity;
-import com.AsymMaxInf.entity.NodeEntity;
+import com.AsymMaxInf.entity.LTGraph;
 
  /**
  * @author wangyang
@@ -18,7 +18,7 @@ import com.AsymMaxInf.entity.NodeEntity;
  */
 public class LineThresholdModel 
  {
-	HashMap<Integer,NodeEntity> nodes;    //节点编号及其对应的对象
+	HashMap<Integer,LTGraph> nodes;    //节点编号及其对应的对象
 	
 	ArrayList<Integer> R;		//当前已激活节点集合
 	int count;			//当前活跃节点集合的大小
@@ -30,7 +30,7 @@ public class LineThresholdModel
 	//输入为网络中的一条条边，并對模型的节点阈值，和边贡献初始化
 	public LineThresholdModel(LinkedList<EdgeEntity> e,HashMap<Integer,Integer> n)
 	{
-		this.nodes=new HashMap<Integer,NodeEntity>();
+		this.nodes=new HashMap<Integer,LTGraph>();
 		//节点集的建立
 		Iterator<Entry<Integer,Integer>> iter=n.entrySet().iterator();
 		while(iter.hasNext())
@@ -38,7 +38,7 @@ public class LineThresholdModel
 			Entry<Integer,Integer> entry=(Entry<Integer,Integer>) iter.next();
 			Integer key=entry.getKey();
 			Integer val=entry.getValue();
-			NodeEntity node=new NodeEntity(val);
+			LTGraph node=new LTGraph(val);
 			node.threshold=Math.random();  //阈值赋值
 			nodes.put(key, node);	
 		}
@@ -48,7 +48,7 @@ public class LineThresholdModel
 		{
 			int src=temp.srcNode;
 			int des=temp.desNode;
-			NodeEntity node=nodes.get(src);
+			LTGraph node=nodes.get(src);
 			double l=1/(node.degree);
 			node.outEdges.put(des,l);
 			
@@ -65,7 +65,7 @@ public class LineThresholdModel
 		//获取初始节点的粉丝节点集合
 		for(Integer I:Init)
 		{			
-			NodeEntity node=nodes.get(I);
+			LTGraph node=nodes.get(I);
 			Iterator<Entry<Integer,Double>> iter=node.outEdges.entrySet().iterator();
 			Entry<Integer,Double> entry;
 			while(iter.hasNext())
@@ -80,7 +80,7 @@ public class LineThresholdModel
 			ArrayList<Integer> temp = new ArrayList<Integer>();
 			for(Integer I:S)
 			{
-				NodeEntity node=nodes.get(I);
+				LTGraph node=nodes.get(I);
 				Iterator<Entry<Integer,Double>> iter=
 						node.inEdges.entrySet().iterator();
 				Entry<Integer,Double> entry;
@@ -107,7 +107,7 @@ public class LineThresholdModel
 			while(!temp.isEmpty())
 			{
 				Integer I=temp.remove(0);
-				NodeEntity node=nodes.get(I);
+				LTGraph node=nodes.get(I);
 				Iterator<Entry<Integer,Double>> iter=node.outEdges.entrySet().iterator();
 				while(iter.hasNext())
 				{
