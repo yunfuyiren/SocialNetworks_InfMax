@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 
-import com.AsymMaxInf.entity.EdgeEntity;
+import com.AsymMaxInf.entity.Edge;
 import com.AsymMaxInf.entity.LTGraph;
 
  /**
@@ -28,7 +28,7 @@ public class LineThresholdModel
 	}
 	
 	//输入为网络中的一条条边，并對模型的节点阈值，和边贡献初始化
-	public LineThresholdModel(LinkedList<EdgeEntity> e,HashMap<Integer,Integer> n)
+	public LineThresholdModel(LinkedList<Edge> e,HashMap<Integer,Integer> n)
 	{
 		this.nodes=new HashMap<Integer,LTGraph>();
 		//节点集的建立
@@ -44,7 +44,7 @@ public class LineThresholdModel
 		}
 		
 		//为节点集添加入边和出边集合
-		for(EdgeEntity temp:e)
+		for(Edge temp:e)
 		{
 			int src=temp.srcNode;
 			int des=temp.desNode;
