@@ -12,18 +12,15 @@ import java.util.HashMap;
  *  邻接表
  */
 public class Graph {
-	ArrayList<ArrayList<Integer>> inEdges; //每个节点的入边邻接表
-	ArrayList<ArrayList<Integer>> outEdges; //每个节点的出边邻接表
-	ArrayList<ArrayList<Double>>	inEdgesWeight; //每个节点的入边邻接表权重，
-	ArrayList<ArrayList<Double>>	outEdgesWeight;//每个节点的出边邻接表权重。
+	ArrayList<ArrayList<Edge>> inEdges; //每个节点的入边邻接表
+	ArrayList<ArrayList<Edge>> outEdges; //每个节点的出边邻接表
+	
 	HashMap<String,Integer> nodeMapping;	//节点映射
 	int nodeNum;		//节点数;
 	public Graph()
 	{
-		inEdges=new ArrayList<ArrayList<Integer>>();
-		outEdges=new ArrayList<ArrayList<Integer>>();
-		inEdgesWeight=new ArrayList<ArrayList<Double>>();
-		outEdgesWeight=new ArrayList<ArrayList<Double>>();
+		inEdges=new ArrayList<ArrayList<Edge>>();
+		outEdges=new ArrayList<ArrayList<Edge>>();
 		nodeMapping=new HashMap<String,Integer>();
 	}
 	/*文件格式必须为第一行是节点数，第二行开始为 srcnode desnode weight*/
@@ -36,20 +33,12 @@ public class Graph {
 		//获得节点数后，对网络初始化
 		for(int i=0;i<nodeNum;i++)
 		{
-			ArrayList<Integer> elem=new ArrayList<Integer>();
-			elem.add(0);
+			ArrayList<Edge> elem=new ArrayList<Edge>();
 			inEdges.add(elem);
-			elem=new ArrayList<Integer>();
-			elem.add(0);
+			elem=new ArrayList<Edge>();
 			outEdges.add(elem);
-			ArrayList<Double> elem2=new ArrayList<Double>();
-			elem2.add((double) 0);
-			inEdgesWeight.add(elem2);
-			elem2=new ArrayList<Double>();
-			elem2.add((double) 0);
-			outEdgesWeight.add(elem2);
-			//节点阈值在各个图的子类中赋值
-			
+
+			//节点阈值在各个图的子类中赋值			
 		}
 		while((data=br.readLine())!=null)
 		{
@@ -57,10 +46,10 @@ public class Graph {
 			int src=Integer.valueOf(d[0]);
 			int des=Integer.valueOf(d[1]);
 			double val=Double.valueOf(d[2]);
-			inEdges.get(des).add(src);
-			outEdges.get(src).add(des);
-			inEdgesWeight.get(des).add(val);
-			outEdgesWeight.get(src).add(val);
+			//入边和出边List存的是相同的内存的数据，这里用的是引用。
+			Edge edge=new Edge(src,des,val);
+			inEdges.get(des).add(edge);
+			outEdges.get(src).add(edge);			
 		}
 	}
 }

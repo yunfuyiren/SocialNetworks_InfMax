@@ -12,17 +12,22 @@ public class Main {
 //		ArrayList<Integer> elem=new ArrayList<Integer>();
 //		elem.add(0);
 //		System.out.println(elem);
+	
 		ArrayList<ArrayList<Integer>> inEdges=new ArrayList<ArrayList<Integer>>(); 
 		ArrayList<Integer> inEdge;
-		int n=5;
 		for(int i=0;i<4;i++)
 		{
 			 inEdge=new ArrayList<Integer>();
 			 inEdges.add(inEdge);
 		}
-		 inEdge=new ArrayList<Integer>();
-		 inEdge.add(0);
+		inEdge=new ArrayList<Integer>();
+		inEdge.add(1);
 		inEdges.add(inEdge);
-		System.out.print(inEdges);
+		for(int i=0;i<5;i++)
+		{
+			ArrayList<Integer> e=inEdges.get(i);
+			System.out.println(e);
+			System.out.println(e.size());
+		}
 	}
 }

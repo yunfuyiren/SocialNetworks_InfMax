@@ -1,5 +1,6 @@
 package com.AsymMaxInf.entity;
 
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -10,13 +11,10 @@ import java.util.Iterator;
  */
 public class LTGraph extends Graph {
 	ArrayList<Double>	nodeThreshold;	//节点阈值
-	ArrayList<ArrayList<Double>>	inEdgesLTWeight; //每个节点的入边邻接表权重，
-	ArrayList<ArrayList<Double>>	outEdgesLTWeight;//每个节点的出边邻接表权重。
+	
 	public LTGraph()
 	{
 		nodeThreshold=new ArrayList<Double>();
-		inEdgesLTWeight=new ArrayList<ArrayList<Double>>();
-		outEdgesLTWeight=new ArrayList<ArrayList<Double>>();
 	}
 	/*节点阈值设置*/
 	public void SetThreshold()
@@ -27,27 +25,23 @@ public class LTGraph extends Graph {
 			nodeThreshold.add(v);
 		}
 	}
-	/*边权设置*/
+	/*边权重新赋值设置*/
 	public void SetLTWeight()
 	{
-		//对入边权与出边权的addAll是为了与 inEdges与outEdges形式对应方便
-		inEdgesLTWeight.addAll(inEdgesWeight);
-		outEdgesLTWeight.addAll(outEdgesWeight);
-		
-		Iterator<ArrayList<Integer>> iter1=inEdges.iterator();
+	
+		/*出边权计算，因为出边权与入边权用的是相同的内存，修改出边的权值，则同样修改了入边的权值*/
+		Iterator<ArrayList<Edge>> iter1=outEdges.iterator();
 		while(iter1.hasNext())
 		{
-			//每一次循环赋权，既对des出边改变，又对src的入边改变
-			ArrayList<Integer> elem=new ArrayList<Integer>();
-			int n=elem.size();
+			/*每一次循环为给每一个节点的出边队列赋权*/
+			ArrayList<Edge>e=iter1.next();
 			
 			//对src出边的List赋权
-			ArrayList<Double> outElem=new ArrayList<Double>();
-			for(int i=0;i<n;i++)
-				outElem.add((double)1/n);
+			Iterator<Edge> iter11=e.iterator();
+			int n=e.size();
+			while(iter11.hasNext())
+				iter11.next().edgeWeight=1/n;
 			
-			//对应的，对des入边的List赋权
-			Iterator<Integer> iter2=
 		}
 	}
 }

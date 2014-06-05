@@ -6,24 +6,24 @@ package com.AsymMaxInf.entity;
  * 边类
  * 此处图的E为有向边，对于(a,b)间的相互连接，存两次a->b,b->a
  */
-public class EdgeEntity 
+public class Edge 
  { 
 	public int srcNode; 
 	public int desNode;
 	public double edgeWeight;   //边固有的权值
-	public EdgeEntity(int src,int des)
+	public Edge(int src,int des)
 	{
 		srcNode=src;
 		desNode=des;
 		edgeWeight=1;
 	}
-	public EdgeEntity(int src,int des,double w)
+	public Edge(int src,int des,double w)
 	{
 		srcNode=src;
 		desNode=des;
 		edgeWeight=w;
 	}
-	public EdgeEntity(EdgeEntity e)
+	public Edge(Edge e)
 	{
 		srcNode=e.srcNode;
 		desNode=e.desNode;
