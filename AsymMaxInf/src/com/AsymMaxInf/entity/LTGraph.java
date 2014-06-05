@@ -3,6 +3,7 @@ package com.AsymMaxInf.entity;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 /**
  * @author wang
@@ -10,7 +11,7 @@ import java.util.Iterator;
  * 包括对节点阈值赋值、节点之间关系，邻居影响力权重b(v,w)
  */
 public class LTGraph extends Graph {
-	ArrayList<Double>	nodeThreshold;	//节点阈值
+	public ArrayList<Double>	nodeThreshold;	//节点阈值
 	
 	public LTGraph()
 	{
@@ -19,9 +20,10 @@ public class LTGraph extends Graph {
 	/*节点阈值设置*/
 	public void SetThreshold()
 	{
+		Random r=new Random(55);
 		for(int i=0;i<nodeNum;i++)
 		{
-			double v=Math.random();
+			double v=r.nextDouble();
 			nodeThreshold.add(v);
 		}
 	}
@@ -36,11 +38,11 @@ public class LTGraph extends Graph {
 			/*每一次循环为给每一个节点的出边队列赋权*/
 			ArrayList<Edge>e=iter1.next();
 			
-			//对src出边的List赋权
+			//对src出边的List修改权值，因为src的出边Edge对象与des的入边Edge对象引用同一块内存，所以修改一次就好。
 			Iterator<Edge> iter11=e.iterator();
 			int n=e.size();
 			while(iter11.hasNext())
-				iter11.next().edgeWeight=1/n;
+				iter11.next().edgeWeight=(double)1/n;
 			
 		}
 	}

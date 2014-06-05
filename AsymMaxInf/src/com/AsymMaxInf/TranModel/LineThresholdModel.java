@@ -1,10 +1,9 @@
 package com.AsymMaxInf.TranModel;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map.Entry;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.AsymMaxInf.entity.Edge;
 import com.AsymMaxInf.entity.LTGraph;
@@ -12,89 +11,61 @@ import com.AsymMaxInf.entity.LTGraph;
  /**
  * @author wangyang
  * 该类实现阈值模型传播过程
- * 输入参数：网络图 G(V,E)，初始活跃节点集 Init 
- * 数据结构：边集：HashMap<节点编号，节点度数>，节点集：HashMap<源节点，目的节点，权值>		
+ * 输入参数：网络图 G(V,E)，初始活跃节点集(节点编号List) Init 	
  * 输出参赛：被激活节点集，激活节点个数
  */
 public class LineThresholdModel 
  {
-	HashMap<Integer,LTGraph> nodes;    //节点编号及其对应的对象
-	
+	LTGraph G;    //节点编号及其对应的对象	
 	ArrayList<Integer> R;		//当前已激活节点集合
 	int count;			//当前活跃节点集合的大小
-	public LineThresholdModel()
-	{
-		
-	}
 	
-	//输入为网络中的一条条边，并對模型的节点阈值，和边贡献初始化
-	public LineThresholdModel(LinkedList<Edge> e,HashMap<Integer,Integer> n)
+	/*输入为网络中的一条条边，并對模型的节点阈值，和边贡献初始化*/
+	public LineThresholdModel(String fileName) throws IOException
 	{
-		this.nodes=new HashMap<Integer,LTGraph>();
-		//节点集的建立
-		Iterator<Entry<Integer,Integer>> iter=n.entrySet().iterator();
-		while(iter.hasNext())
-		{
-			Entry<Integer,Integer> entry=(Entry<Integer,Integer>) iter.next();
-			Integer key=entry.getKey();
-			Integer val=entry.getValue();
-			LTGraph node=new LTGraph(val);
-			node.threshold=Math.random();  //阈值赋值
-			nodes.put(key, node);	
-		}
-		
-		//为节点集添加入边和出边集合
-		for(Edge temp:e)
-		{
-			int src=temp.srcNode;
-			int des=temp.desNode;
-			LTGraph node=nodes.get(src);
-			double l=1/(node.degree);
-			node.outEdges.put(des,l);
-			
-			node=nodes.get(des);
-			node.inEdges.put(src, l);
-		}
+		G=new LTGraph();
+		G.ReadFromeFile(fileName);
+		G.SetThreshold();
+		G.SetLTWeight();
+
 	}	
 	
 	/*传入参数是初始活跃节点集合*/
 	public int Activiting(ArrayList<Integer> Init)
 	{
 		R=new ArrayList<Integer>(Init);  //将活跃节点加入R
-		ArrayList<Integer> S=new ArrayList<Integer>();		//待激活节点集合
+		Set<Integer> S=new HashSet<Integer>();		//待激活节点集合,这里使用Set是为了防止存入相同节点
 		//获取初始节点的粉丝节点集合
 		for(Integer I:Init)
 		{			
-			LTGraph node=nodes.get(I);
-			Iterator<Entry<Integer,Double>> iter=node.outEdges.entrySet().iterator();
-			Entry<Integer,Double> entry;
-			while(iter.hasNext())
+			G.isActive.set(I-1, true);
+			ArrayList<Edge> edges=G.outEdges.get(I-1);
+			for(Edge edge:edges)
 			{
-				entry=(Entry<Integer,Double>) iter.next();
-				Integer key=entry.getKey();
-				S.add(key);
-			}
+				if(!R.contains(edge.desNode))
+				{
+					S.add(edge.desNode);
+				}
+			}	
 		}
-		while(true)
+		while(true)  //每次循环就是一个时间步
 		{
 			ArrayList<Integer> temp = new ArrayList<Integer>();
+			//对于S中的每一个节点
 			for(Integer I:S)
 			{
-				LTGraph node=nodes.get(I);
-				Iterator<Entry<Integer,Double>> iter=
-						node.inEdges.entrySet().iterator();
-				Entry<Integer,Double> entry;
-				int acum_val=0;  //对每条激活临边的权值求和
-				while(iter.hasNext())
+				double threshold=G.nodeThreshold.get(I-1);
+				ArrayList<Edge> edges=G.inEdges.get(I-1);
+				double imfSum=0;		//边权影响力之和
+				for(Edge edge:edges)
 				{
-					entry=(Entry<Integer,Double>) iter.next();
-					Integer key=entry.getKey();
-					if(R.contains(key))   //如果该邻节点已激活
-						acum_val+=entry.getValue();
+					imfSum+=edge.edgeWeight;
 				}
-				if(acum_val>=node.threshold)
+			
+				if(imfSum>=threshold)
 				{
 					temp.add(I);
+					G.isActive.set(I-1, true);
 					count++;
 				}
 			}
@@ -102,20 +73,19 @@ public class LineThresholdModel
 				break;
 			
 			//将 temp 中节点加入R,同时将R中所有节点粉丝节点放入S
+			
 			R.addAll(temp);
 			S.clear();
-			while(!temp.isEmpty())
+			for(Integer I:temp)
 			{
-				Integer I=temp.remove(0);
-				LTGraph node=nodes.get(I);
-				Iterator<Entry<Integer,Double>> iter=node.outEdges.entrySet().iterator();
-				while(iter.hasNext())
+				ArrayList<Edge> edges=G.outEdges.get(I-1);
+				for(Edge e:edges)
 				{
-					Entry<Integer,Double> entry=iter.next();
-					int key=entry.getKey();
-					
+					if(G.isActive.get(e.desNode-1)==false)
+						S.add(e.desNode);
 				}
-			}		
+			}	
+			temp=null;
 		}
 		return count;
 	}

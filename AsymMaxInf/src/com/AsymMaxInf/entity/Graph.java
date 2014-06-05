@@ -10,11 +10,12 @@ import java.util.HashMap;
  * @author wang
  *	图的定义
  *  邻接表
+ *  注意：节点的id与下标差1，下标从0开始
  */
 public class Graph {
-	ArrayList<ArrayList<Edge>> inEdges; //每个节点的入边邻接表
-	ArrayList<ArrayList<Edge>> outEdges; //每个节点的出边邻接表
-	
+	public ArrayList<ArrayList<Edge>> inEdges; //每个节点的入边邻接表
+	public ArrayList<ArrayList<Edge>> outEdges; //每个节点的出边邻接表
+	public ArrayList<Boolean> isActive;			//节点激活与否标记
 	HashMap<String,Integer> nodeMapping;	//节点映射
 	int nodeNum;		//节点数;
 	public Graph()
@@ -22,6 +23,7 @@ public class Graph {
 		inEdges=new ArrayList<ArrayList<Edge>>();
 		outEdges=new ArrayList<ArrayList<Edge>>();
 		nodeMapping=new HashMap<String,Integer>();
+		isActive=new ArrayList<Boolean>();
 	}
 	/*文件格式必须为第一行是节点数，第二行开始为 srcnode desnode weight*/
 	public void ReadFromeFile(String FileName) throws IOException
@@ -38,18 +40,25 @@ public class Graph {
 			elem=new ArrayList<Edge>();
 			outEdges.add(elem);
 
-			//节点阈值在各个图的子类中赋值			
+			//节点阈值在各个Graph的子类中赋值	
+			
+			//节点激活与否的标记
+			isActive.add(false);
 		}
 		while((data=br.readLine())!=null)
 		{
 			String[] d=data.split(" ");
 			int src=Integer.valueOf(d[0]);
 			int des=Integer.valueOf(d[1]);
-			double val=Double.valueOf(d[2]);
+			double val;
+			if(d.length==3)
+				val=Double.valueOf(d[2]);
+			else
+				val=1;
 			//入边和出边List存的是相同的内存的数据，这里用的是引用。
 			Edge edge=new Edge(src,des,val);
-			inEdges.get(des).add(edge);
-			outEdges.get(src).add(edge);			
+			inEdges.get(des-1).add(edge);
+			outEdges.get(src-1).add(edge);			
 		}
 	}
 }
