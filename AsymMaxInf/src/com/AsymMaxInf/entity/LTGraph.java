@@ -27,12 +27,12 @@ public class LTGraph extends Graph {
 			nodeThreshold.add(v);
 		}
 	}
-	/*边权重新赋值设置*/
+	/*边权重新赋值设置,每条边权设置为1/d(v),v为目的节点的度数*/
 	public void SetLTWeight()
 	{
 	
 		/*出边权计算，因为出边权与入边权用的是相同的内存，修改出边的权值，则同样修改了入边的权值*/
-		Iterator<ArrayList<Edge>> iter1=outEdges.iterator();
+		Iterator<ArrayList<Edge>> iter1=inEdges.iterator();
 		while(iter1.hasNext())
 		{
 			/*每一次循环为给每一个节点的出边队列赋权*/
