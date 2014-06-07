@@ -1,44 +1,40 @@
 package com.AsymMaxInf.entity;
 
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
 /**
  * @author wang
- * ï¿½Ì³ï¿½Graph
- * ï¿½ï¿½ï¿½ï¿½ï¿½Ô½Úµï¿½ï¿½ï¿½Öµï¿½ï¿½Öµï¿½ï¿½ï¿½Úµï¿½Ö®ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½Ú¾ï¿½Ó°ï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½b(v,w)
+ * LTÄ£ÐÍ¶ÔGraphµÄ¼Ì³Ð
+ * ¶¨Òå½ÚµããÐÖµ£¬Íê³É¶Ô½ÚµããÐÖµÒÔ¼°±ßÈ¨b(v,w)¸³Öµ
  */
 public class LTGraph extends Graph {
-	public ArrayList<Double>	nodeThreshold;	//ï¿½Úµï¿½ï¿½ï¿½Öµ
+	public ArrayList<Double>	nodeThreshold;	//½ÚµããÐÖµ
 	
 	public LTGraph()
 	{
 		nodeThreshold=new ArrayList<Double>();
 	}
-	/*ï¿½Úµï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½*/
+	/*ÉèÖÃ½ÚµããÐÖµ*/
 	public void SetThreshold()
 	{
-		Random r=new Random(55);
+		Random r=new Random();
 		for(int i=0;i<nodeNum;i++)
 		{
-			double v=r.nextDouble();
+			double v=0.6;//r.nextDouble();
 			nodeThreshold.add(v);
 		}
 	}
-	/*ï¿½ï¿½È¨ï¿½ï¿½ï¿½Â¸ï¿½Öµï¿½ï¿½ï¿½ï¿½*/
+	/*ÉèÖÃ±ßÈ¨*/
 	public void SetLTWeight()
 	{
-	
-		/*ï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½ï¿½ã£¬ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ú´æ£¬ï¿½Þ¸Ä³ï¿½ï¿½ßµï¿½È¨Öµï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½È¨Öµ*/
+		/*½ÚµãÈë±ß¼¯ºÏ×÷Îªµü´úÆ÷*/
 		Iterator<ArrayList<Edge>> iter1=inEdges.iterator();
 		while(iter1.hasNext())
 		{
-			/*Ã¿Ò»ï¿½ï¿½Ñ­ï¿½ï¿½Îªï¿½ï¿½Ã¿Ò»ï¿½ï¿½ï¿½Úµï¿½ï¿½Ä³ï¿½ï¿½ß¶ï¿½ï¿½Ð¸ï¿½È¨*/
 			ArrayList<Edge>e=iter1.next();
-			
-			//ï¿½ï¿½srcï¿½ï¿½ï¿½ßµï¿½Listï¿½Þ¸ï¿½È¨Öµï¿½ï¿½ï¿½ï¿½Îªsrcï¿½Ä³ï¿½ï¿½ï¿½Edgeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½desï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Edgeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬Ò»ï¿½ï¿½ï¿½Ú´æ£¬ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½Ò»ï¿½Î¾ÍºÃ¡ï¿½
+			/*¶ÔÃ¿Ìõ±ßµÄÈ¨Öµ¶¨ÒåÎªdes½ÚµãµÄÈë¶ÈµÄµ¹Êý1/n*/
 			Iterator<Edge> iter11=e.iterator();
 			int n=e.size();
 			while(iter11.hasNext())

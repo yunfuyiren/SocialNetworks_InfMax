@@ -24,7 +24,7 @@ public class LineThresholdModel
 	public LineThresholdModel(String fileName) throws IOException
 	{
 		G=new LTGraph();
-		G.ReadFromeFile(fileName);
+		G.ReadFromFile(fileName);
 		G.SetThreshold();
 		G.SetLTWeight();
 
@@ -59,7 +59,8 @@ public class LineThresholdModel
 				double imfSum=0;		//边权影响力之和
 				for(Edge edge:edges)
 				{
-					imfSum+=edge.edgeWeight;
+					if(G.isActive.get(edge.srcNode-1))
+						imfSum+=edge.edgeWeight;
 				}
 			
 				if(imfSum>=threshold)
@@ -87,6 +88,7 @@ public class LineThresholdModel
 			}	
 			temp=null;
 		}
+		System.out.println(G.nodeThreshold);
 		return count;
 	}
 }

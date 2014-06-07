@@ -26,7 +26,7 @@ public class Graph {
 		isActive=new ArrayList<Boolean>();
 	}
 	/*文件格式必须为第一行是节点数，第二行开始为 srcnode desnode weight*/
-	public void ReadFromeFile(String FileName) throws IOException
+	public void ReadFromFile(String FileName) throws IOException
 	{
 		@SuppressWarnings("resource")
 		BufferedReader br=new BufferedReader(new FileReader(FileName));

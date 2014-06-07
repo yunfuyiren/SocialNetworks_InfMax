@@ -3,7 +3,7 @@ package com.AsyMaxInf.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.AsymMaxInf.TranModel.LineThresholdModel;
+import com.AsymMaxInf.TranModel.IndependCasecadeModel;
 
 public class Main {
 	public static void main(String[] args) throws IOException
@@ -35,12 +35,12 @@ public class Main {
 		
 	
 		ArrayList<Integer> Init =new ArrayList<Integer>();
-		Init.add(1);
 		Init.add(2);
-		Init.add(3);
 		String fileName="test.txt";
-		LineThresholdModel LT=new LineThresholdModel(fileName);
-		int n=LT.Activiting(Init);	
+//		LineThresholdModel LT=new LineThresholdModel(fileName);
+//		int n=LT.Activiting(Init);
+		IndependCasecadeModel IC=new IndependCasecadeModel(fileName);
+		int n=IC.Activiting(Init);
 		System.out.print(n);
 	}
 }
