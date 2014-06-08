@@ -3,7 +3,7 @@ package com.AsyMaxInf.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.AsymMaxInf.TranModel.IndependCasecadeModel;
+import com.AsymMaxInf.CmpedMaxInfAlgthm.MaxDegreeHeuristic;
 
 public class Main {
 	public static void main(String[] args) throws IOException
@@ -39,8 +39,10 @@ public class Main {
 		String fileName="test.txt";
 //		LineThresholdModel LT=new LineThresholdModel(fileName);
 //		int n=LT.Activiting(Init);
-		IndependCasecadeModel IC=new IndependCasecadeModel(fileName);
-		int n=IC.Activiting(Init);
-		System.out.print(n);
+//		IndependCasecadeModel IC=new IndependCasecadeModel(fileName);
+//		int n=IC.Activiting(Init);
+		MaxDegreeHeuristic MaxD=new MaxDegreeHeuristic(fileName);
+		ArrayList<Integer> R=MaxD.MaxDegreeList(3);
+		System.out.print(R);
 	}
 }
