@@ -17,7 +17,7 @@ public class Graph {
 	public ArrayList<ArrayList<Edge>> outEdges; //每个节点的出边邻接表
 	public ArrayList<Boolean> isActive;			//节点激活与否标记
 	HashMap<String,Integer> nodeMapping;	//节点映射
-	int nodeNum;		//节点数;
+	public int nodeNum;		//节点数;
 	public Graph()
 	{
 		inEdges=new ArrayList<ArrayList<Edge>>();

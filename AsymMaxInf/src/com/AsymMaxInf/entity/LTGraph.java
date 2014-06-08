@@ -22,7 +22,7 @@ public class LTGraph extends Graph {
 		Random r=new Random();
 		for(int i=0;i<nodeNum;i++)
 		{
-			double v=0.6;//r.nextDouble();
+			double v=r.nextDouble();
 			nodeThreshold.add(v);
 		}
 	}
