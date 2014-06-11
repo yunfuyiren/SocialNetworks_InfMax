@@ -1,9 +1,9 @@
-package com.AsyMaxInf.Test;
+package com.yunfuyiren.AsyMaxInf.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.AsymMaxInf.CmpedMaxInfAlgthm.MaxDegreeHeuristic;
+import com.yunfuyiren.AsymMaxInf.MaxInfAlgthm.MaxDegreeHeuristic;
 
 public class Main {
 	public static void main(String[] args) throws IOException

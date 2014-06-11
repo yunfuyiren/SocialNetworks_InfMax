@@ -1,12 +1,12 @@
-package com.AsymMaxInf.CmpedMaxInfAlgthm;
+package com.yunfuyiren.AsymMaxInf.MaxInfAlgthm;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
-import com.AsymMaxInf.entity.Edge;
-import com.AsymMaxInf.entity.Graph;
+import com.yunfuyiren.AsymMaxInf.entity.Edge;
+import com.yunfuyiren.AsymMaxInf.entity.Graph;
 
 public class MaxDegreeHeuristic {
 	ArrayList<Integer> ND;	//按节点出度数由大到小排序的节点编号列表
