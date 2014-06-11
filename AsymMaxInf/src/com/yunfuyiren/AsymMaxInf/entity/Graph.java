@@ -1,4 +1,4 @@
-package com.AsymMaxInf.entity;
+package com.yunfuyiren.AsymMaxInf.entity;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

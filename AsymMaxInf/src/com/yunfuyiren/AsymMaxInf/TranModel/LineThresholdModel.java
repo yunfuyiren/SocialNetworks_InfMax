@@ -1,12 +1,12 @@
-package com.AsymMaxInf.TranModel;
+package com.yunfuyiren.AsymMaxInf.TranModel;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.AsymMaxInf.entity.Edge;
-import com.AsymMaxInf.entity.LTGraph;
+import com.yunfuyiren.AsymMaxInf.entity.Edge;
+import com.yunfuyiren.AsymMaxInf.entity.LTGraph;
 
  /**
  * @author wangyang

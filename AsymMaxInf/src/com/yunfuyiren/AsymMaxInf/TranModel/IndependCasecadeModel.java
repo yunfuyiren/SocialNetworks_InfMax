@@ -1,11 +1,11 @@
-package com.AsymMaxInf.TranModel;
+package com.yunfuyiren.AsymMaxInf.TranModel;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.AsymMaxInf.entity.Edge;
-import com.AsymMaxInf.entity.ICGraph;
+import com.yunfuyiren.AsymMaxInf.entity.Edge;
+import com.yunfuyiren.AsymMaxInf.entity.ICGraph;
 
 /**
  * @author wangyang
