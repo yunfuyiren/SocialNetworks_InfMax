@@ -1,10 +1,10 @@
 package com.yunfuyiren.AsymMaxInf.TranModel;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.yunfuyiren.AsyMaxInf.Interface.SetModelAttributes;
 import com.yunfuyiren.AsymMaxInf.entity.Edge;
 import com.yunfuyiren.AsymMaxInf.entity.LTGraph;
 
@@ -14,21 +14,17 @@ import com.yunfuyiren.AsymMaxInf.entity.LTGraph;
  * 输入参数：网络图 G(V,E)，初始活跃节点集(节点编号List) Init 	
  * 输出参赛：被激活节点集，激活节点个数
  */
-public class LineThresholdModel 
- {
+public class LineThresholdModel extends TransferModel implements SetModelAttributes
+{
 	LTGraph G;    //节点编号及其对应的对象	
-	ArrayList<Integer> R;		//当前已激活节点集合
-	int count;			//当前活跃节点集合的大小
-	
-	/*输入为网络中的一条条边，并對模型的节点阈值，和边贡献初始化*/
-	public LineThresholdModel(String fileName) throws IOException
+		
+	/*输入为一个LTGraph*/
+	public LineThresholdModel(LTGraph graph)
 	{
-		G=new LTGraph();
-		G.ReadFromFile(fileName);
+		G=graph;
 		G.SetThreshold();
-		G.SetLTWeight();
-
-	}	
+		G.SetWeight();
+	}
 	
 	/*传入参数是初始活跃节点集合*/
 	public int Activiting(ArrayList<Integer> Init)
@@ -42,7 +38,7 @@ public class LineThresholdModel
 			ArrayList<Edge> edges=G.outEdges.get(I-1);
 			for(Edge edge:edges)
 			{
-				if(!R.contains(edge.desNode))
+				if(!R.contains(edge.desNode)) //如果邻居节点是非活跃的，加入待激活的队列
 				{
 					S.add(edge.desNode);
 				}

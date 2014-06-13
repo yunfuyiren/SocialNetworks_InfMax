@@ -18,15 +18,17 @@ public class Graph {
 	public ArrayList<Boolean> isActive;			//节点激活与否标记
 	HashMap<String,Integer> nodeMapping;	//节点映射
 	public int nodeNum;		//节点数;
-	public Graph()
+	public Graph(String FileName) throws IOException
 	{
+		System.out.println("Graph构造函数");
 		inEdges=new ArrayList<ArrayList<Edge>>();
 		outEdges=new ArrayList<ArrayList<Edge>>();
 		nodeMapping=new HashMap<String,Integer>();
 		isActive=new ArrayList<Boolean>();
+		ReadFromFile(FileName);
 	}
 	/*文件格式必须为第一行是节点数，第二行开始为 srcnode desnode weight*/
-	public void ReadFromFile(String FileName) throws IOException
+	protected void ReadFromFile(String FileName) throws IOException
 	{
 		@SuppressWarnings("resource")
 		BufferedReader br=new BufferedReader(new FileReader(FileName));
@@ -59,6 +61,15 @@ public class Graph {
 			Edge edge=new Edge(src,des,val);
 			inEdges.get(des-1).add(edge);
 			outEdges.get(src-1).add(edge);			
+		}
+	}
+	
+	/*激活标记列表初始化*/
+	public void InitIsActive()
+	{
+		for(int i=0;i<isActive.size();i++)
+		{
+			isActive.set(i, false);
 		}
 	}
 }

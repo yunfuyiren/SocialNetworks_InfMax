@@ -8,13 +8,13 @@ import java.util.Random;
 import com.yunfuyiren.AsymMaxInf.entity.Edge;
 import com.yunfuyiren.AsymMaxInf.entity.Graph;
 
-public class MaxDegreeHeuristic {
+public class MaxDegreeHeuristic_Algrithm {
 	ArrayList<Integer> ND;	//按节点出度数由大到小排序的节点编号列表
 	Graph G;
-	public MaxDegreeHeuristic(String FileName) throws IOException
+	public MaxDegreeHeuristic_Algrithm(String FileName) throws IOException
 	{
-		G=new Graph();
-		G.ReadFromFile(FileName);
+		G=new Graph(FileName);
+		
 		ND=new ArrayList<Integer>();
 	}
 	
