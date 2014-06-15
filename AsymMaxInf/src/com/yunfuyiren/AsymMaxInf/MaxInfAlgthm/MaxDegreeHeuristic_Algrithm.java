@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
-import com.yunfuyiren.AsymMaxInf.entity.Edge;
-import com.yunfuyiren.AsymMaxInf.entity.Graph;
+import com.yunfuyiren.AsymMaxInf.GraphPro.Edge;
+import com.yunfuyiren.AsymMaxInf.GraphPro.Graph;
 
 public class MaxDegreeHeuristic_Algrithm {
 	ArrayList<Integer> ND;	//按节点出度数由大到小排序的节点编号列表
