@@ -14,61 +14,42 @@ import com.yunfuyiren.AsymMaxInf.GraphPro.PRPGraph;
 import com.yunfuyiren.AsymMaxInf.MaxInfAlgthm.TopKGreedy_Algrithm;
 import com.yunfuyiren.AsymMaxInf.TranModelFactory.ICModelFactory;
 import com.yunfuyiren.AsymMaxInf.TranModelFactory.LTModelFactory;
+import com.yunfuyiren.AsymMaxInf.TranModelFactory.LTweakenModelFactory;
 import com.yunfuyiren.AsymMaxInf.TranModelFactory.PRPModelFactory;
 import com.yunfuyiren.AsymMaxInf.TranModelFactory.TransferModelFactory;
-import com.yunfuyiren.AsymMaxInf.TranModelPro.ICModel;
-import com.yunfuyiren.AsymMaxInf.TranModelPro.LTModel;
-import com.yunfuyiren.AsymMaxInf.TranModelPro.PRPModel;
+
 import com.yunfuyiren.AsymMaxInf.TranModelPro.TransferModel;
 
 public class Main {
 	public static void main(String[] args) throws IOException
 	{
-//		String a="1 3 3.5";
-//		String[] b;
-//		b=a.split(" ");
-//		System.out.println(b);
-//		ArrayList<Integer> elem=new ArrayList<Integer>();
-//		elem.add(0);
-//		System.out.println(elem);
-	
-//		ArrayList<ArrayList<Integer>> inEdges=new ArrayList<ArrayList<Integer>>(); 
-//		ArrayList<Integer> inEdge;
-//		for(int i=0;i<4;i++)
-//		{
-//			 inEdge=new ArrayList<Integer>();
-//			 inEdges.add(inEdge);
-//		}
-//		inEdge=new ArrayList<Integer>();
-//		inEdge.add(1);
-//		inEdges.add(inEdge);
-//		for(int i=0;i<5;i++)
-//		{
-//			ArrayList<Integer> e=inEdges.get(i);
-//			System.out.println(e);
-//			System.out.println(e.size());
-//		}
-		
-	
 		ArrayList<Integer> Init =new ArrayList<Integer>();
 		Init.add(2);
 		String fileName="test.txt";
 		TopKGreedy_Algrithm top;
 		
-		//线性阈值模型
-//		LTGraph G=new LTGraph(fileName);
-//		LineThresholdModel LT=new LineThresholdModel(G);
-//		top=new TopKGreedy_Algrithm(G,G,LT,2,1000);			
-//		//级联模型
-//		ICGraph G2=new ICGraph(fileName);
-//		IndependCasecadeModel IC=new IndependCasecadeModel(G2);
-//		top=new TopKGreedy_Algrithm(G2,G2,IC,2,1000);		
-		//PageRank模型
-		GraphFactory factory=new ICGraphFactory();
-		Graph G3=factory.CreateGraph(fileName);
-		TransferModelFactory fm3=new ICModelFactory();
-		TransferModel model=fm3.CreatingModel();
-		top=new TopKGreedy_Algrithm(G3,model,2,2);
+		//线性阈值模型	
+		GraphFactory ltfactory=new LTGraphFactory();
+		Graph ltg=ltfactory.CreateGraph(fileName);
+//		TransferModelFactory ltfm=new LTModelFactory();
+//		TransferModel ltmodel=ltfm.CreatingModel();
+//		top=new TopKGreedy_Algrithm(ltg,ltmodel,2,2);
+		//级联模型	
+//		GraphFactory icfactory=new ICGraphFactory();
+//		Graph icg=icfactory.CreateGraph(fileName);
+//		TransferModelFactory icfm=new ICModelFactory();
+//		TransferModel icmodel=icfm.CreatingModel();
+//		top=new TopKGreedy_Algrithm(icg,icmodel,2,2);
+//		//PageRank模型
+//		GraphFactory prpfactory=new PRPGraphFactory();
+//		Graph prpg=prpfactory.CreateGraph(fileName);
+//		TransferModelFactory prpfm=new PRPModelFactory();
+//		TransferModel prpmodel=prpfm.CreatingModel();
+//		top=new TopKGreedy_Algrithm(prpg,prpmodel,2,2);
+		//衰减线性阈值模型
+		TransferModelFactory ltwfm=new LTweakenModelFactory();
+		TransferModel ltwmodel=ltwfm.CreatingModel();
+		top=new TopKGreedy_Algrithm(ltg,ltwmodel,2,2);
 		
 		top.Greedy_Algrithm();
 		System.out.println(top.S);
