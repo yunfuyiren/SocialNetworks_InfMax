@@ -45,4 +45,17 @@ public class LTGraph extends Graph implements SetGraphAttributesInterface{
 				iter11.next().edgeWeight=(double)1/n;			
 		}
 	}
+	
+	
+	@Override
+	public void SetInfluceWeight() {
+		// TODO 自动生成的方法存根
+		
+	}
+	//设置节点默认的影响力权值为1
+	@Override
+	public void SetDefaultInfluceWeight() {
+		// TODO 自动生成的方法存根
+			
+	}
 }

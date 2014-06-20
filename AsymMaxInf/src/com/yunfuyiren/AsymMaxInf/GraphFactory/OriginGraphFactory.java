@@ -16,6 +16,8 @@ public class OriginGraphFactory implements GraphFactory{
 		Graph g=new Graph(name);
 		g.SetThreshold();
 		g.SetWeight();
+//		g.SetInfluceWeight();
+		g.SetDefaultInfluceWeight();
 		return null;
 	}
 

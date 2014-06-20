@@ -36,4 +36,15 @@ public class ICGraph extends Graph implements SetGraphAttributesInterface{
 		// TODO Auto-generated method stub
 		System.out.println("ICGraph SetThreshold");
 	}
+	@Override
+	public void SetInfluceWeight() {
+		// TODO 自动生成的方法存根
+		
+	}
+	//设置节点默认的影响力权值为1
+	@Override
+	public void SetDefaultInfluceWeight() {
+		// TODO 自动生成的方法存根
+			
+	}
 }

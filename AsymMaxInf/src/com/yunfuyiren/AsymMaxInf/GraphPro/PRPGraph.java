@@ -73,4 +73,14 @@ public class PRPGraph extends Graph implements SetGraphAttributesInterface{
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void SetInfluceWeight() {
+		// TODO 自动生成的方法存根
+		
+	}
+	@Override
+	public void SetDefaultInfluceWeight() {
+		// TODO 自动生成的方法存根
+			
+	}
 }
