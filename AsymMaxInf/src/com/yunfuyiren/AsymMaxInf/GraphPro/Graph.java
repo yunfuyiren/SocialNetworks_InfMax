@@ -19,6 +19,7 @@ public class Graph implements SetGraphAttributesInterface {
 	public ArrayList<Boolean> isActive;			//节点激活与否标记
 	HashMap<String,Integer> nodeMapping;	//节点映射
 	public ArrayList<Double>	nodeThreshold;	//节点阈值
+	public ArrayList<Double>	nodeInfluenceWeight;	//节点影响力权值，不同节点激活后其带来的影响力不同，不单单是最终的节点个数
 	public int nodeNum;		//节点数;
 	public Graph(String FileName) throws IOException
 	{
@@ -28,6 +29,7 @@ public class Graph implements SetGraphAttributesInterface {
 		nodeMapping=new HashMap<String,Integer>();
 		isActive=new ArrayList<Boolean>();
 		nodeThreshold=new ArrayList<Double>();
+		nodeInfluenceWeight=new ArrayList<Double>();
 		ReadFromFile(FileName);
 	}
 	public Graph()
@@ -87,6 +89,18 @@ public class Graph implements SetGraphAttributesInterface {
 	@Override
 	public void SetThreshold() {
 		// TODO Auto-generated method stub
+		
+	}
+	//根据实际设置节点影响力权值
+	@Override
+	public void SetInfluceWeight() {
+		// TODO 自动生成的方法存根
+		
+	}
+	//设置节点默认的影响力权值为1
+	@Override
+	public void SetDefaultInfluceWeight() {
+		// TODO 自动生成的方法存根
 		
 	}
 }

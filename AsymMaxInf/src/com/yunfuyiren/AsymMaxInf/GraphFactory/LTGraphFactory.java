@@ -18,6 +18,8 @@ public class LTGraphFactory implements GraphFactory{
 		Graph g=new LTGraph(name);
 		g.SetThreshold();
 		g.SetWeight();
+//		g.SetInfluceWeight();
+		g.SetDefaultInfluceWeight();
 		return g;
 	}
 

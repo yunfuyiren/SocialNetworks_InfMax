@@ -17,6 +17,8 @@ public class PRPGraphFactory implements GraphFactory{
 		Graph g=new PRPGraph(name);
 		g.SetThreshold();
 		g.SetWeight();
+//		g.SetInfluceWeight();
+		g.SetDefaultInfluceWeight();
 		return g;
 	}
 

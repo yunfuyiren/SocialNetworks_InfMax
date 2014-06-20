@@ -18,6 +18,8 @@ public class ICGraphFactory implements GraphFactory{
 		Graph g=new ICGraph(fname);
 		g.SetThreshold();
 		g.SetWeight();
+//		g.SetInfluceWeight();
+		g.SetDefaultInfluceWeight();
 		return g;
 	}
 
