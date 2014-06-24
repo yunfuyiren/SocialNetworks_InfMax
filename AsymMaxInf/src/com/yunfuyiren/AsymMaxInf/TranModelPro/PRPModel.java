@@ -2,6 +2,7 @@ package com.yunfuyiren.AsymMaxInf.TranModelPro;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 
@@ -9,18 +10,23 @@ import com.yunfuyiren.AsymMaxInf.GraphPro.Edge;
 import com.yunfuyiren.AsymMaxInf.GraphPro.Graph;
 
 public class PRPModel extends TransferModel implements SetModelAttributesInterface{
-	
+	private ArrayList<Double> pageRank;
+	double q;	//阻尼系数
 	/*输入为一个PRPGraph*/
-	public PRPModel()
+	public PRPModel(Graph g)
 	{
+		super(g);
+		pageRank=new ArrayList<Double>();
+		q=0.85;
 		System.out.println("PRPModel构造函数");
 	}
 	
 	/*传入参数是初始活跃节点集合*/
 	@Override
-	public int Activiting(Graph G, ArrayList<Integer> Init) {
+	public double Activiting(ArrayList<Integer> Init) {
 		// TODO Auto-generated method stub
 		count=Init.size();   //初始活跃节点本身也算
+		total_inf=count;		//总的影响力之和
 		G.InitIsActive();
 		R=new ArrayList<Integer>(Init);		   //将活跃节点加入R
 		Set<Integer>S=new HashSet<Integer>();  //待激活节点集合,这里使用Set是为了防止存入相同节点
@@ -67,6 +73,7 @@ public class PRPModel extends TransferModel implements SetModelAttributesInterfa
 					G.isActive.set(I-1,true);
 					temp.add(I);
 					count++;
+					total_inf+=G.nodeInfluenceWeight.get(I-1);
 				}
 				i++;
 			}
@@ -86,6 +93,64 @@ public class PRPModel extends TransferModel implements SetModelAttributesInterfa
 			}
 			temp=null;
 		}		
-		return count;
-	}	
+		System.out.println("count= "+count+",total_inf= "+total_inf);
+		return total_inf;
+	}
+
+	//直接给每个节点的PageRank初值设为1，然后迭代到满足一定条件为止。
+	private void SetPageRank1()
+	{
+		double threshold=0.0001; //每次循环迭代时，总的pageRank值的变化阈值
+		double calc_pr=10000;//保存在迭代时，pageRank变化累计值
+		for(int i=0;i<G.nodeNum;i++)
+		{
+			pageRank.add((double) 1);  //初始阈值设定
+		}
+		int time=0;   //迭代次数
+		while(calc_pr>threshold)
+		{
+			calc_pr=0;
+			for(int i=0;i<G.nodeNum;i++)
+			{
+				double temp_pr=0;
+				for(Edge e:G.inEdges.get(i))
+				{
+					temp_pr+=pageRank.get(e.srcNode-1)/G.outEdges.get(e.srcNode-1).size();
+				}
+				temp_pr=temp_pr*q+(1-q);//nodeNum;
+				double pre_pr=pageRank.get(i);
+				calc_pr+=Math.abs(temp_pr-pre_pr);
+			
+				pageRank.set(i, temp_pr);
+			}
+			time=time+1;
+		}
+	}
+
+	@Override
+	public void SetWeight() {
+		// TODO Auto-generated method stub
+		SetPageRank1();		//先设置节点权值
+		Iterator<ArrayList<Edge>> iter=G.inEdges.iterator();
+		while(iter.hasNext())
+		{
+			ArrayList<Edge> edges =iter.next();
+			double sum_pr=0;
+			for(Edge e:edges)
+			{
+				sum_pr+=pageRank.get(e.srcNode-1);
+			}
+			for(Edge e:edges)
+			{
+				e.edgeWeight=pageRank.get(e.srcNode-1)/sum_pr;
+			}
+		}
+	}
+
+	@Override
+	public void SetThreshold() {
+		// TODO 自动生成的方法存根
+		
+	}
+	
 }

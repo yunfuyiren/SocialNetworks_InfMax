@@ -13,7 +13,7 @@ import java.util.HashMap;
  *  注意：节点的id与下标差1，下标从0开始
  *  继承图属性设置接口，为不同的图设置不同的属性
  */
-public class Graph implements SetGraphAttributesInterface {
+public class Graph {
 	public ArrayList<ArrayList<Edge>> inEdges; //每个节点的入边邻接表
 	public ArrayList<ArrayList<Edge>> outEdges; //每个节点的出边邻接表
 	public ArrayList<Boolean> isActive;			//节点激活与否标记
@@ -31,6 +31,7 @@ public class Graph implements SetGraphAttributesInterface {
 		nodeThreshold=new ArrayList<Double>();
 		nodeInfluenceWeight=new ArrayList<Double>();
 		ReadFromFile(FileName);
+		SetDefaultInfluceWeight();
 	}
 	public Graph()
 	{
@@ -81,26 +82,17 @@ public class Graph implements SetGraphAttributesInterface {
 			isActive.set(i, false);
 		}
 	}
-	@Override
-	public void SetWeight() {
-		// TODO Auto-generated method stub
+	/*设置节点影响力权值*/
+	public void SetInfluceWeight()
+	{
 		
-	}
-	@Override
-	public void SetThreshold() {
-		// TODO Auto-generated method stub
-		
-	}
-	//根据实际设置节点影响力权值
-	@Override
-	public void SetInfluceWeight() {
-		// TODO 自动生成的方法存根
-		
-	}
-	//设置节点默认的影响力权值为1
-	@Override
-	public void SetDefaultInfluceWeight() {
-		// TODO 自动生成的方法存根
-		
+	}	
+	/*设置节点默认的影响力权值为1*/
+	private void SetDefaultInfluceWeight()
+	{
+		for(int i=0;i<nodeNum;i++)
+		{
+			nodeInfluenceWeight.add((double) 1);
+		}
 	}
 }

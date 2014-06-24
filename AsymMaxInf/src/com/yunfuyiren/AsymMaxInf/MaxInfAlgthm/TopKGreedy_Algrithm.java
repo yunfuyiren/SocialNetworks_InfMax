@@ -7,20 +7,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.yunfuyiren.AsymMaxInf.GraphPro.Graph;
-import com.yunfuyiren.AsymMaxInf.GraphPro.SetGraphAttributesInterface;
 import com.yunfuyiren.AsymMaxInf.TranModelPro.TransferModel;
 
-public class TopKGreedy_Algrithm {
-	Graph G;			//ÍøÂçÍ¼
-	TransferModel TM;   //´«²¥Ä£ĞÍ
-	public int M;		//ÖØ¸´¼ÆËã´ÎÊı
-	int K;		//ÖÖ×Ó¼¯ºÏ´óĞ¡,Top KµÄK
+public class TopKGreedy_Algrithm extends MaxInf_Algrithm implements MaxInfAlgrithmInterface{
 	
-	/*Êä³ö¼¯ºÏ*/
-	public ArrayList<Integer> S;	//Êä³öÖÖ×Ó¼¯ºÏ
-	public double Influence;    //Êä³öÓ°ÏìÁ¦´óĞ¡
-	
-	/*gÎªÍ¼£¬gaÎªÍ¼µÄ¼Ó¹¤½Ó¿Ú£¬maÎªÄ£ĞÍµÄ¼Ó¹¤½Ó¿Ú£¬kÎªÖÖ×Ó´óĞ¡£¬MÎªÖØ¸´´ÎÊı*/
+	/*gä¸ºå›¾ï¼Œtmä¸ºä¼ æ’­æ¨¡å‹ï¼Œkä¸ºç§å­å¤§å°ï¼Œmä¸ºé‡å¤æ¬¡æ•°*/
 	public TopKGreedy_Algrithm(Graph g,TransferModel tm,int k,int m){
 		G=g;	
 		K=k;
@@ -28,13 +19,15 @@ public class TopKGreedy_Algrithm {
 		this.M=m;
 		S=new ArrayList<Integer>();
 	}
-	public void Greedy_Algrithm()
+	//å½±å“åŠ›æœ€å¤§åŒ–ç®—æ³•
+	private void MaxInf_Algrithm()
 	{	
+		Influence=0;
 		for(int i=0;i<K;i++)
 		{
 			HashMap<Integer,Double> maxMB=new HashMap<Integer,Double>();
 			
-			//¶ÔÃ¿Ò»¸ö½Úµã
+			//å¯¹æ¯ä¸€ä¸ªèŠ‚ç‚¹
 			for(int j=0;j<G.inEdges.size();j++)
 			{
 				if(!S.contains(j+1))
@@ -42,14 +35,19 @@ public class TopKGreedy_Algrithm {
 					ArrayList<Integer> SS=new ArrayList<Integer>(S);
 					SS.add(j+1);
 					double sv=0;
-					for(int t=0;t<M;t++)  //¼ÆËãtÊ±¿ÌµÄ½Úµã±ß¼ÊĞ§Òæ
+					for(int t=0;t<M;t++)  //è®¡ç®—tæ—¶åˆ»çš„èŠ‚ç‚¹è¾¹é™…æ•ˆç›Š
 					{
-						int rs0=Propagation_Process(TM,S);
-						int rs1=Propagation_Process(TM,SS);
-						sv+=(double)(rs1-rs0);/*½áµãvÔÚËùÓĞÊ±¿ÌµÄ±ß¼ÊĞ§Òæ×ÜºÍ*/
+						double rs0=Propagation_Process(TM,S);
+						double rs1=Propagation_Process(TM,SS);
+						if((rs1-rs0)>7)
+							System.out.println(rs1-rs0);
+	
+						sv+=(rs1-rs0);/*ç»“ç‚¹våœ¨æ‰€æœ‰æ—¶åˆ»çš„è¾¹é™…æ•ˆç›Šæ€»å’Œ*/
+						if(sv/M>7)
+							System.out.println(rs1-rs0);
 					}
-					sv=sv/M; //½ÚµãµÄÆ½¾ù±ß¼ÊĞ§Òæ
-					maxMB.put(j+1, sv);
+					sv=sv/M; //èŠ‚ç‚¹çš„å¹³å‡è¾¹é™…æ•ˆç›Š
+					maxMB.put(j+1, sv);		//å½±å“åŠ›ä¹‹å·®ï¼Œè¾¹ç•Œå½±å“åŠ›
 					SS.clear();
 					SS=null;
 				}
@@ -74,19 +72,25 @@ public class TopKGreedy_Algrithm {
 					tempmax=entry.getValue();
 				}
 			}
-			S.add(tempindex);						//½«¼ÆËãµÄ±ß½ç½Úµã¼ÓÈëÄ¿±ê¼¯ºÏÖĞ
-			Influence+=maxMB.get(tempindex);		//Ó°ÏìÁ¦µÄ±£Áô
-		}
+			S.add(tempindex);						//å°†è®¡ç®—çš„è¾¹ç•ŒèŠ‚ç‚¹åŠ å…¥ç›®æ ‡é›†åˆä¸­
+		}	
 	}
 	
-	/*¹¤³§Ä£Ê½£¬´«²¥Ä£ĞÍµÄ´«²¥¹ı³Ìº¯Êı£¬·µ»ØÓ°ÏìµÄ½ÚµãÊı*/
-	public int Propagation_Process(TransferModel TM,ArrayList<Integer> Init){
-		return TM.Activiting(G,Init);
+	/*å¾—åˆ°æœ€ç»ˆçš„ç›®æ ‡åˆå§‹é›†åˆSåï¼Œè®¡ç®—å…¶å½±å“åŠ›ã€‚å¤šæ¬¡è®¡ç®—æ±‚å¹³å‡*/
+	@Override
+	public void Cac_MaxInf()
+	{
+		 MaxInf_Algrithm();
+		double res=0;
+		for(int i=0;i<M;i++)
+			res+=Propagation_Process(TM,S);
+		Influence=res/M;
 	}
-	
-	/*¹¤³§Ä£Ê½£¬¶ÔÍ¼µÄÊôĞÔ½¨Ä£*/
-	public void Building_Graph(SetGraphAttributesInterface db){
-		db.SetThreshold();
-		db.SetWeight();
+	/*å·¥å‚æ¨¡å¼ï¼Œä¼ æ’­æ¨¡å‹çš„ä¼ æ’­è¿‡ç¨‹å‡½æ•°ï¼Œè¿”å›å½±å“çš„èŠ‚ç‚¹æ•°*/
+	@Override
+	public double Propagation_Process(TransferModel TM,ArrayList<Integer> Init){
+		TM.SetThreshold();
+		TM.SetWeight();
+		return TM.Activiting(Init);
 	}
 }

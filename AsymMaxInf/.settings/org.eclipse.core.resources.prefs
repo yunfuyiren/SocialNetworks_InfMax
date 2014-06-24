@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+encoding//src/com/yunfuyiren/AsymMaxInf/GraphPro/Graph.java=GBK
+encoding//src/com/yunfuyiren/AsymMaxInf/MaxInfAlgthm/MaxDegreeHeuristic_Algrithm.java=UTF-8
+encoding//src/com/yunfuyiren/AsymMaxInf/MaxInfAlgthm/MaxInf_Algrithm.java=UTF-8
+encoding//src/com/yunfuyiren/AsymMaxInf/MaxInfAlgthm/TopKGreedy_Algrithm.java=UTF-8
+encoding//src/com/yunfuyiren/AsymMaxInf/TranModelFactory/LTweakenModelFactory.java=GBK
+encoding//src/com/yunfuyiren/AsymMaxInf/TranModelPro/ICModel.java=GBK
+encoding//src/com/yunfuyiren/AsymMaxInf/TranModelPro/LTModel.java=GBK
+encoding//src/com/yunfuyiren/AsymMaxInf/TranModelPro/LTweakenModel.java=GBK
+encoding//src/com/yunfuyiren/AsymMaxInf/TranModelPro/PRPModel.java=GBK
+encoding//src/com/yunfuyiren/AsymMaxInf/TranModelPro/SetModelAttributesInterface.java=GBK
+encoding//src/com/yunfuyiren/AsymMaxInf/TranModelPro/TransferModel.java=GBK
