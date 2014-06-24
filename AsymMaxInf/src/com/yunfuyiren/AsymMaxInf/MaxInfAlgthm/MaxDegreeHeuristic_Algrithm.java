@@ -1,27 +1,33 @@
 package com.yunfuyiren.AsymMaxInf.MaxInfAlgthm;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
 import com.yunfuyiren.AsymMaxInf.GraphPro.Edge;
 import com.yunfuyiren.AsymMaxInf.GraphPro.Graph;
+import com.yunfuyiren.AsymMaxInf.TranModelPro.TransferModel;
 
-public class MaxDegreeHeuristic_Algrithm {
-	ArrayList<Integer> ND;	//°´½Úµã³ö¶ÈÊıÓÉ´óµ½Ğ¡ÅÅĞòµÄ½Úµã±àºÅÁĞ±í
-	Graph G;
-	public MaxDegreeHeuristic_Algrithm(String FileName) throws IOException
+/**
+ * @author wang
+ * å¯å‘å¼å½±å“åŠ›æœ€å¤§åŒ–ç®—æ³•
+ */
+public class MaxDegreeHeuristic_Algrithm extends MaxInf_Algrithm implements MaxInfAlgrithmInterface{
+	
+	public MaxDegreeHeuristic_Algrithm(Graph g,TransferModel tm,int k,int m)
 	{
-		G=new Graph(FileName);
-		
-		ND=new ArrayList<Integer>();
+		TM=tm;
+		G=g;
+		K=k;
+		M=m;
+		S=new ArrayList<Integer>();
 	}
 	
-	public ArrayList<Integer> MaxDegreeList(int k)
+	/*æ‰¾å¯»åˆå§‹ç§å­é›†åˆ*/
+	private void MaxDegreeList(int k)
 	{
 		ArrayList<Integer> R=new ArrayList<Integer>();
-		Random r=new Random();		//ÎªºóÃæ¿ìÅÅÉèÖÃÖÖ×Ó
+		Random r=new Random();		//ä¸ºåé¢å¿«æ’è®¾ç½®ç§å­
 		Iterator<ArrayList<Edge>> iter1=G.inEdges.iterator();
 		int[] outDegrees=new int[G.nodeNum];
 		int[] index=new int[G.nodeNum];
@@ -35,21 +41,21 @@ public class MaxDegreeHeuristic_Algrithm {
 		
 		i=r.nextInt(G.nodeNum);
 		SwichPos(outDegrees,index,i,0);
-		//¿ìÅÅ¶Ô½ÚµãË³ĞòÅÅĞò
+		//å¿«æ’å¯¹èŠ‚ç‚¹é¡ºåºæ’åº
 		KQuickSort(outDegrees,index,k,0,G.nodeNum-1);
-		System.out.println(outDegrees);
+//		System.out.println(outDegrees);
 		for(i=G.nodeNum-1;i>=G.nodeNum-k;i--)
 		{
 			R.add(index[i]);
 		}
-		return R;
+		S.addAll(R);
 	}
-	//ÕÒµ½k¸ö¶È×î´óµÄ½Úµã-ÓÃ¿ìÅÅµÄË¼Ïë O(n)¸´ÔÓ¶È,ÊäÈë²ÎÊı±íÊ¾ÕÒµ½µÚkĞ¡µÄ,low±íÊ¾µ±Ç°Ñ­»·µÄÊı×éÖĞµÄ×îµÍÎ»£¬high±íÊ¾×î¸ßÎ»
-	//½á¹û±£´æÔÚÊı×éµÄ×îºó²¿·Ö£¬ËùÒÔ²»Õ¼¶îÍâµÄ¿Õ¼ä
-	public void KQuickSort(int[] degrees,int[] index,int k,int low,int high)
+	//æ‰¾åˆ°kä¸ªåº¦æœ€å¤§çš„èŠ‚ç‚¹-ç”¨å¿«æ’çš„æ€æƒ³ O(n)å¤æ‚åº¦,è¾“å…¥å‚æ•°è¡¨ç¤ºæ‰¾åˆ°ç¬¬kå°çš„,lowè¡¨ç¤ºå½“å‰å¾ªç¯çš„æ•°ç»„ä¸­çš„æœ€ä½ä½ï¼Œhighè¡¨ç¤ºæœ€é«˜ä½
+	//ç»“æœä¿å­˜åœ¨æ•°ç»„çš„æœ€åéƒ¨åˆ†ï¼Œæ‰€ä»¥ä¸å é¢å¤–çš„ç©ºé—´
+	private void KQuickSort(int[] degrees,int[] index,int k,int low,int high)
 	{
 		int i,j;
-		i=low;  //¼ÇÂ¼±ÈµÚÒ»¸öÔªËØĞ¡µÄÊı×é
+		i=low;   //è®°å½•æ¯”ç¬¬ä¸€ä¸ªå…ƒç´ å°çš„æ•°ç»„
 		j=low+1;
 		while(j<=high)
 		{
@@ -70,7 +76,7 @@ public class MaxDegreeHeuristic_Algrithm {
 			KQuickSort(degrees,index,(k-high+i-1),low,i-1);
 	}
 	
-	public void SwichPos(int[] degrees,int[] index,int i,int j)
+	private void SwichPos(int[] degrees,int[] index,int i,int j)
 	{
 		int temp;
 		temp=degrees[i];
@@ -80,5 +86,23 @@ public class MaxDegreeHeuristic_Algrithm {
 		temp=index[i];
 		index[i]=index[j];
 		index[j]=temp;
+	}
+
+	/*å¾—åˆ°æœ€ç»ˆçš„ç›®æ ‡åˆå§‹é›†åˆSåï¼Œè®¡ç®—å…¶å½±å“åŠ›ã€‚å¤šæ¬¡è®¡ç®—æ±‚å¹³å‡*/
+	@Override
+	public void Cac_MaxInf()
+	{
+    	MaxDegreeList(K);
+		double res=0;
+		for(int i=0;i<M;i++)
+			res+=Propagation_Process(TM,S);
+		Influence=res/M;
+	}
+	/*å·¥å‚æ¨¡å¼ï¼Œä¼ æ’­æ¨¡å‹çš„ä¼ æ’­è¿‡ç¨‹å‡½æ•°ï¼Œè¿”å›å½±å“çš„èŠ‚ç‚¹æ•°*/
+	@Override
+	public double Propagation_Process(TransferModel TM,ArrayList<Integer> Init){
+		TM.SetThreshold();
+		TM.SetWeight();
+		return TM.Activiting(Init);
 	}
 }
