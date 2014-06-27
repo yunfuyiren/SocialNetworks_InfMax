@@ -11,7 +11,7 @@ import com.yunfuyiren.AsymMaxInf.GraphPro.Graph;
  * @author wangyang
  * 该类实现独立级联模型传播过程
  */
-public class ICModel extends TransferModel implements SetModelAttributesInterface{
+public class ICModel extends TransferModel{
 	/*输入为一个ICGraph*/
 	public ICModel(Graph g)
 	{
@@ -84,4 +84,18 @@ public class ICModel extends TransferModel implements SetModelAttributesInterfac
 		// TODO 自动生成的方法存根
 		
 	}
+	/**
+	 * @author wang
+	 * 将工厂放到模型的内部作为匿名类，赋值给静态对象，既简化代码编写，又继承了工厂接口
+	 */
+	public static TransferModelFactory factory=new TransferModelFactory(){
+
+		@Override
+		public TransferModel CreatingModel(Graph g) {
+			// TODO Auto-generated method stub
+			TransferModel tm=new ICModel(g);
+			return tm;
+		}
+		
+	};
 }

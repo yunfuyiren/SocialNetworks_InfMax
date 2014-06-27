@@ -14,7 +14,7 @@ import com.yunfuyiren.AsymMaxInf.GraphPro.Graph;
  * 输入参数：网络图 G(V,E)，初始活跃节点集(节点编号List) Init 	
  * 输出参赛：被激活节点集，激活节点个数
  */
-public class LTModel extends TransferModel  implements SetModelAttributesInterface
+public class LTModel extends TransferModel
 {		
 	/*输入为一个LTGraph*/
 	public LTModel(Graph g)
@@ -118,4 +118,18 @@ public class LTModel extends TransferModel  implements SetModelAttributesInterfa
 			G.nodeThreshold.add(v);
 		}
 	}
+	/**
+	 * @author wang
+	 * 将工厂放到模型的内部作为匿名类，赋值给静态对象，既简化代码编写，又继承了工厂接口
+	 */
+	public static TransferModelFactory factory=new TransferModelFactory(){
+
+		@Override
+		public TransferModel CreatingModel(Graph g) {
+			// TODO Auto-generated method stub
+			TransferModel tm=new LTModel(g);
+			return tm;
+		}
+		
+	};
 }

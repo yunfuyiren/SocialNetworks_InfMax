@@ -9,7 +9,7 @@ import java.util.Set;
 import com.yunfuyiren.AsymMaxInf.GraphPro.Edge;
 import com.yunfuyiren.AsymMaxInf.GraphPro.Graph;
 
-public class PRPModel extends TransferModel implements SetModelAttributesInterface{
+public class PRPModel extends TransferModel{
 	private ArrayList<Double> pageRank;
 	double q;	//阻尼系数
 	/*输入为一个PRPGraph*/
@@ -153,4 +153,14 @@ public class PRPModel extends TransferModel implements SetModelAttributesInterfa
 		
 	}
 	
+	public static TransferModelFactory factory=new TransferModelFactory() {
+
+		@Override
+		public TransferModel CreatingModel(Graph g) {
+			// TODO Auto-generated method stub
+			TransferModel tm=new PRPModel(g);
+			return tm;
+		}
+		
+	};
 }
