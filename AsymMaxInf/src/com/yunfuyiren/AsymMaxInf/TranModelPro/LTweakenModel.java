@@ -9,7 +9,7 @@ import java.util.Set;
 import com.yunfuyiren.AsymMaxInf.GraphPro.Edge;
 import com.yunfuyiren.AsymMaxInf.GraphPro.Graph;
 
-public class LTweakenModel extends TransferModel implements SetModelAttributesInterface{
+public class LTweakenModel extends TransferModel{
 	double r_param;  //传播过程中的衰减参数
 	public LTweakenModel(Graph g)
 	{
@@ -113,4 +113,15 @@ public class LTweakenModel extends TransferModel implements SetModelAttributesIn
 				iter11.next().edgeWeight=(double)1/n;			
 		}
 	}
+	
+	public static TransferModelFactory factory=new TransferModelFactory() {
+
+		@Override
+		public TransferModel CreatingModel(Graph g) {
+			// TODO Auto-generated method stub
+			TransferModel tm=new LTweakenModel(g);
+			return tm;
+		}
+		
+	};
 }

@@ -28,7 +28,7 @@ public class MaxDegreeHeuristic_Algrithm extends MaxInf_Algrithm implements MaxI
 	{
 		ArrayList<Integer> R=new ArrayList<Integer>();
 		Random r=new Random();		//为后面快排设置种子
-		Iterator<ArrayList<Edge>> iter1=G.inEdges.iterator();
+		Iterator<ArrayList<Edge>> iter1=G.outEdges.iterator();
 		int[] outDegrees=new int[G.nodeNum];
 		int[] index=new int[G.nodeNum];
 		int i=0;
@@ -54,7 +54,7 @@ public class MaxDegreeHeuristic_Algrithm extends MaxInf_Algrithm implements MaxI
 	//结果保存在数组的最后部分，所以不占额外的空间
 	private void KQuickSort(int[] degrees,int[] index,int k,int low,int high)
 	{
-		int i,j;
+		int i,j; 
 		i=low;   //记录比第一个元素小的数组
 		j=low+1;
 		while(j<=high)

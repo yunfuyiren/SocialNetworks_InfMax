@@ -20,7 +20,7 @@ public class TopKGreedy_Algrithm extends MaxInf_Algrithm implements MaxInfAlgrit
 		S=new ArrayList<Integer>();
 	}
 	//影响力最大化算法
-	private void MaxInf_Algrithm()
+	private void Greedy_Process()
 	{	
 		Influence=0;
 		for(int i=0;i<K;i++)
@@ -80,7 +80,7 @@ public class TopKGreedy_Algrithm extends MaxInf_Algrithm implements MaxInfAlgrit
 	@Override
 	public void Cac_MaxInf()
 	{
-		 MaxInf_Algrithm();
+		Greedy_Process();
 		double res=0;
 		for(int i=0;i<M;i++)
 			res+=Propagation_Process(TM,S);

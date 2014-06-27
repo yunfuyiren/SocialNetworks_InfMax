@@ -21,6 +21,7 @@ public class Graph {
 	public ArrayList<Double>	nodeThreshold;	//节点阈值
 	public ArrayList<Double>	nodeInfluenceWeight;	//节点影响力权值，不同节点激活后其带来的影响力不同，不单单是最终的节点个数
 	public int nodeNum;		//节点数;
+	
 	public Graph(String FileName) throws IOException
 	{
 		System.out.println("Graph构造函数");
@@ -38,7 +39,7 @@ public class Graph {
 		
 	}
 	/*文件格式必须为第一行是节点数，第二行开始为 srcnode desnode weight*/
-	protected void ReadFromFile(String FileName) throws IOException
+	private void ReadFromFile(String FileName) throws IOException
 	{
 		@SuppressWarnings("resource")
 		BufferedReader br=new BufferedReader(new FileReader(FileName));
@@ -82,7 +83,7 @@ public class Graph {
 			isActive.set(i, false);
 		}
 	}
-	/*设置节点影响力权值*/
+	/*设置节点影响力权值，每个节点的影响力有区别，而不单单是影响的节点个数*/
 	public void SetInfluceWeight()
 	{
 		
