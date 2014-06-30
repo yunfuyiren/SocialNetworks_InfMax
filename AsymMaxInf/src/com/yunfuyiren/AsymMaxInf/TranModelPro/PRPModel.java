@@ -25,7 +25,7 @@ public class PRPModel extends TransferModel{
 	@Override
 	public double Activiting(ArrayList<Integer> Init) {
 		// TODO Auto-generated method stub
-		count=Init.size();   //初始活跃节点本身也算
+		count=0;//=Init.size();   //初始活跃节点本身也算
 		total_inf=count;		//总的影响力之和
 		G.InitIsActive();
 		R=new ArrayList<Integer>(Init);		   //将活跃节点加入R

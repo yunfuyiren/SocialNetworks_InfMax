@@ -20,8 +20,7 @@ public class LTweakenModel extends TransferModel{
 	public double Activiting(ArrayList<Integer> Init) {
 		// TODO 自动生成的方法存根		
 		G.InitIsActive();
-		count=Init.size();  //初始活跃节点本身也算
-		total_inf=count;		//总的影响力之和
+		total_inf=0;		//总的影响力之和
 		R=new ArrayList<Integer>(Init);  //将活跃节点加入R
 		Set<Integer> S=new HashSet<Integer>();		//待激活节点集合,这里使用Set是为了防止存入相同节点
 		//获取初始节点的粉丝节点集合
