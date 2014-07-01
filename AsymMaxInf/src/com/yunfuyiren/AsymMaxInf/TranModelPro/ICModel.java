@@ -23,8 +23,7 @@ public class ICModel extends TransferModel{
 	@Override
 	public double Activiting(ArrayList<Integer> Init)
 	{
-		count=Init.size();   //初始活跃节点本身也算
-		total_inf=count;		//总的影响力之和
+		total_inf=0;		//总的影响力之和,不算开始已经激活节点
 		G.InitIsActive();	//活跃标记初始化，清零
 		R=new ArrayList<Integer>();
 		ArrayList<Integer> S=new ArrayList<Integer>(Init);

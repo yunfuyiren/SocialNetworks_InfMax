@@ -10,5 +10,6 @@ import java.util.ArrayList;
 public interface SetModelAttributesInterface {
 	public void SetWeight();
 	public void SetThreshold();
+	//贪心算法激活过程用此函数
 	public double Activiting(ArrayList<Integer> Init);
 }

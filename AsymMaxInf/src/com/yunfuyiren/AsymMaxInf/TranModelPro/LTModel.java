@@ -28,7 +28,7 @@ public class LTModel extends TransferModel
 	public double Activiting(ArrayList<Integer> Init) {
 		// TODO Auto-generated method stub
 		G.InitIsActive();
-		count=Init.size();   //初始活跃节点本身也算
+		count=0;//Init.size();   //初始活跃节点本身也算
 		total_inf=count;	 //总的影响力之和	
 		R=new ArrayList<Integer>(Init);  //将活跃节点加入R
 		Set<Integer> S=new HashSet<Integer>();		//待激活节点集合,这里使用Set是为了防止存入相同节点
