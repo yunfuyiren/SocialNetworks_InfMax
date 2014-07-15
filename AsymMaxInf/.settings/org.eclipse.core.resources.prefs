@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/com/yunfuyiren/AsymMaxInf/GraphPro/Graph.java=GBK
+encoding//src/com/yunfuyiren/AsymMaxInf/MaxInfAlgthm/CELF_Algrithm.java=UTF-8
 encoding//src/com/yunfuyiren/AsymMaxInf/MaxInfAlgthm/MaxDegreeHeuristic_Algrithm.java=UTF-8
 encoding//src/com/yunfuyiren/AsymMaxInf/MaxInfAlgthm/MaxInf_Algrithm.java=UTF-8
 encoding//src/com/yunfuyiren/AsymMaxInf/MaxInfAlgthm/TopKGreedy_Algrithm.java=UTF-8

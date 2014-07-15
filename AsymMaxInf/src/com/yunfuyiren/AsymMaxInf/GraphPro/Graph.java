@@ -11,7 +11,6 @@ import java.util.HashMap;
  *	图的定义
  *  邻接表
  *  注意：节点的id与下标差1，下标从0开始
- *  继承图属性设置接口，为不同的图设置不同的属性
  */
 public class Graph {
 	public ArrayList<ArrayList<Edge>> inEdges; //每个节点的入边邻接表
